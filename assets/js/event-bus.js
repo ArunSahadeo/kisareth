@@ -2,7 +2,6 @@ const EventBus = {
 	topics: {},
 
 	subscribe(topic, listener) {
-
 		// create the topic if not yet created
 
         if (!this.topics[topic] || !this.topics.hasOwnProperty(topic)) {
@@ -15,9 +14,7 @@ const EventBus = {
         return this;
 
 	},
-
 	unsubscribe(topic, listener) {
-
 		// return if the topic does not exist
 
         if (!this.topics[topic] || !this.topics.hasOwnProperty(topic)) {
@@ -31,17 +28,17 @@ const EventBus = {
         }
 
 	},
-
-	publish(topic, data) {
-
+	publish(topic, data = {}) {
 		// return if the topic doesn't exist, or there are no listeners
-        if (!this.topics[topic] || this.topics[topic].length < 1) {
+        if (!this.topics.hasOwnProperty(topic) || this.topics[topic].length < 1) {
             return;
         }
 
 		// send the event to all listeners
-		this.topics[topic].forEach(function(listener) {
-		  listener(data || {});
+		this.topics[topic].forEach(function (listener) {
+            if (typeof listener !== 'undefined') {
+		        listener(data || {});
+            }
 		});
 
         return this;

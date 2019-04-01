@@ -1,6 +1,7 @@
 import EventBus from './event-bus';
-window.addEventListener('load', initModules);
 
-const load = (e) => {
+const loadApp = (e) => {
     EventBus.publish('init-tracking');
 };
+
+window.addEventListener('load', loadApp);

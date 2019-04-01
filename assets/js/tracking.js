@@ -1,15 +1,9 @@
 import EventBus from './event-bus';
 
-const TrackingModule = () => {
-    var
-        self = this,
-        supportedInWindow,
-        supportedInNavigator
-    ;
-
-    checkTrackingPreferences = () => {
-        supportedInWindow = window.hasOwnProperty('doNotTrack');
-        supportedInNavigator = navigator.hasOwnProperty('doNotTrack');
+const TrackingModule = {
+    checkTrackingPreferences: function () {
+        let supportedInWindow = window.hasOwnProperty('doNotTrack');
+        let supportedInNavigator = navigator.hasOwnProperty('doNotTrack');
 
         if (!supportedInWindow && !supportedInNavigator) {
             return false;
@@ -33,14 +27,14 @@ const TrackingModule = () => {
         return true;
     },
 
-    run = () => {
-        let doNotTrack = self.checkTrackingPreferences(); 
+    run: function () {
+        const doNotTrack = TrackingModule.checkTrackingPreferences(); 
 
         if (doNotTrack) {
             return;
         }
 
-        console.log('Tracking is enabled!');
+        EventBus.publish('enable-trackers');
     }
 };
 

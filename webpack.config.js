@@ -26,23 +26,17 @@ const paths = {
         scriptDir + '/tracking.js',    
         scriptDir + '/app.js'
     ],
-    /*
-    styles: [
-        styleDir + '/styles.scss'
-    ]
-    */
 };
 
 module.exports = {
     target: 'web',
     entry: {
         'scripts.min.js': paths.scripts,
-        //'styles': paths.styles
     },
 
     output: {
         filename: '[name]',
-        path: buildDir
+        path: buildDir + '/js'
     },
 
     module: {
@@ -96,12 +90,6 @@ module.exports = {
         })],
     },
     plugins: [
-        /*
-        new MiniCSSExtractPlugin({
-            filename: '[name].css',
-            chunkFilename: '[name].css'
-        }),
-        */
         new FileManagerPlugin({
             onStart: {
                 delete: [
@@ -116,11 +104,6 @@ module.exports = {
                     { source: fontDir + '/*', destination: buildDir + '/fonts' },
                     { source: imgDir + '/*', destination: buildDir + '/img' },
                 ],
-                /*
-                delete: [
-                    buildDir + '/css/styles'
-                ]
-                */
             }
         }),
     ]
